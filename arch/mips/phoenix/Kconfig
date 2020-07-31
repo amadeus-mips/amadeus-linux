@@ -1,0 +1,12 @@
+if MACH_PHOENIX
+
+choice
+    prompt "Machine type"
+    default PHOENIX_ARTIX7
+
+config PHOENIX_ARTIX7
+    bool "Phoenix CPU on Artix7 Board"
+
+endchoice
+
+endif

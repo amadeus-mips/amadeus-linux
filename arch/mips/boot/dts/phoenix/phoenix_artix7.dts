@@ -1,0 +1,67 @@
+/dts-v1/;
+
+#include <dt-bindings/interrupt-controller/irq.h>
+
+/ {
+	#address-cells = <1>;
+	#size-cells = <1>;
+	compatible = "phoenix,artix7";
+
+	//TODO: insufficient bootargs
+	chosen {
+		bootargs = "console=ttyS0,57600n8";
+	};
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		cpu@0 {
+			device_type = "cpu";
+			compatible = "mips,4Kc";
+			clocks	= <&ext>;
+			reg = <0>;
+		};
+	};
+
+	ext: ext {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+	};
+
+	/** this is the ddr3 ram */
+	memory: memory@0 {
+		device_type = "memory";
+		reg = <0x0 0x8000000>;
+	};
+	cpuintc: interrupt-controller@0 {
+		#address-cells = <0>;
+		#interrupt-cells = <1>;
+		interrupt-controller;
+		compatible="mti,cpu-interrupt-controller";
+	};
+	
+	soc {
+		compatible = "simple-bus";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		#interrupt-cells = <1>;
+		ranges;
+	
+		serial0: serial@bfe40000 {
+			device_type = "serial";
+			compatible = "ns16550a";
+			reg = <0xbfe40000 0x4000>;
+	                reg-offset = <0>;
+			reg-io-width = <1>;
+	                reg-shift = <0>;
+	                current-speed = <57600>;
+	                clock-frequency = <33000000>;
+	                interrupt-parent = <&cpuintc>;
+			interrupts = <5>;
+		};
+	
+	
+	}
+
+};
+//TODO: enable more IP and devices
