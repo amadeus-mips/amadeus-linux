@@ -8,7 +8,7 @@
 
 void prom_putchar(char c)
 {
-#if IS_ENABLED(CONFIG_PHOENIX_NSCSCC)
+#if IS_ENABLED(CONFIG_PHOENIX_ARTIX7)
     while( (readl((uint32_t *)(EARLY_PRINTK_UART_BASE + 0x14)) & 0x40) == 0 );
     PHOENIX_UART_OUTB(0x00, c & 0xFF);
 #endif
@@ -16,24 +16,24 @@ void prom_putchar(char c)
 
 void __init prom_init(void)
 {
-#if IS_ENABLED(CONFIG_PHOENIX_NSCSCC)
+#if IS_ENABLED(CONFIG_PHOENIX_ARTIX7)
     /** turn on the uart fifo register, reset all values,
      * set the interrupt threshold to 8 byte */
-    PHOENIX_UART_OUTB(0x02, 0x83);
+    PHOENIX_UART_OUTB(0x08, 0x83);
     /** set uar lcr register DLABbit to 1
      * this will use 0x0, 0x1 as divisor latch */
-    PHOENIX_UART_OUTB(0x03, 0x80);
+    PHOENIX_UART_OUTB(0x0c, 0x80);
     /** set the baud rate to 57600 */
-    PHOENIX_UART_OUTB(0x00, 0x23);
-    PHOENIX_UART_OUTB(0x01, 0x08);
+    PHOENIX_UART_OUTB(0x04, 0x23);
+    PHOENIX_UART_OUTB(0x00, 0x08);
 
     // 8 data bits, 1 stop bit, parity off; turn off DLAB latch
-    PHOENIX_UART_OUTB(0x03, 0x03);
+    PHOENIX_UART_OUTB(0x0C, 0x03);
 
     // turn on rts and dts model control
-    PHOENIX_UART_OUTB(0x04, 0x3);
+    PHOENIX_UART_OUTB(0x10, 0x3);
     // Enable rcv interrupts
-    PHOENIX_UART_OUTB(0x01, 0x01);
+    PHOENIX_UART_OUTB(0x04, 0x01);
 #endif
 }
 

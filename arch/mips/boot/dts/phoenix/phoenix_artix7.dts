@@ -9,12 +9,13 @@
 
 	//TODO: insufficient bootargs
 	chosen {
-		bootargs = "console=ttyS0,57600n8";
+		bootargs = "console=ttyS0,115200 rootfstype=ramfs root=/dev";
 	};
 
 	cpus {
 		#address-cells = <1>;
 		#size-cells = <0>;
+		mips-hpt-frequency = <50000000>;
 		cpu@0 {
 			device_type = "cpu";
 			compatible = "mips,4Kc";
@@ -26,6 +27,7 @@
 	ext: ext {
 		compatible = "fixed-clock";
 		#clock-cells = <0>;
+		clock-frequency = <50000000>;
 	};
 
 	/** this is the ddr3 ram */
@@ -47,21 +49,47 @@
 		#interrupt-cells = <1>;
 		ranges;
 	
-		serial0: serial@bfe40000 {
+		serial0: serial@bfd00000 {
 			device_type = "serial";
-			compatible = "ns16550a";
-			reg = <0xbfe40000 0x4000>;
+			compatible = "ns16550";
+			reg = <0xbfd00000 0x1000>;
 	                reg-offset = <0>;
-			reg-io-width = <1>;
-	                reg-shift = <0>;
-	                current-speed = <57600>;
-	                clock-frequency = <33000000>;
+					reg-io-width = <4>;
+	                reg-shift = <2>;
+	                current-speed = <115200>;
+	                clock-frequency = <50000000>;
 	                interrupt-parent = <&cpuintc>;
 			interrupts = <5>;
 		};
-	
-	
-	}
+
+		axi_ethernetlite: ethernet@bfe00000 {
+			compatible = "xlnx,xps-ethernetlite-3.00.a";
+			device_type = "network";
+			interrupt_parent = <&cpuintc>;
+			interrupt = <3>;
+			local-mac-address = [e6 c7 26 bf e2 94];
+			phy-handle = <&phy0>;
+			phy-mode = "mii";
+			max-speed = <100>;
+			reg = <0xbfe00000 0x10000>;
+			xlnx,duplex = <0x1>;
+			xlnx,include-global-buffers = <0x1>;
+			xlnx,include-internal-loopback = <0x0>;
+			xlnx,include-mdio = <0x1>;
+			xlnx,instance = "axi_ethernetlite_inst";
+			xlnx,rx-ping-pong = <0x1>;
+			xlnx,s-axi-id-width = <0x1>;
+			xlnx,tx-ping-pong = <0x1>;
+			xlnx,use-internal = <0x0>;
+			mdio {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					phy0: phy@1 {
+							device_type = "ethernet-phy";
+							reg = <1>;
+					} ;
+			} ;
+	};
+	};
 
 };
-//TODO: enable more IP and devices

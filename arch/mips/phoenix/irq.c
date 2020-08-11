@@ -26,7 +26,7 @@ void __init arch_init_irq(void)
 	unsigned int sr;
 	struct device_node *intc_node;
 	pr_cont("arch_init_irq with ebase: 0x%x\n", (u32) ebase);
-	sr = st_c0_status(ST0_BEV);
+	sr = set_c0_status(ST0_BEV);
 	write_c0_ebase((u32)ebase);
 	write_c0_status(sr);
 	intc_node = of_find_compatible_node(NULL, NULL,
