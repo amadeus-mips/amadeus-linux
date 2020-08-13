@@ -54,7 +54,7 @@
 			compatible = "ns16550";
 			reg = <0xbfd00000 0x1000>;
 	                reg-offset = <0>;
-					reg-io-width = <4>;
+			reg-io-width = <4>;
 	                reg-shift = <2>;
 	                current-speed = <115200>;
 	                clock-frequency = <50000000>;
