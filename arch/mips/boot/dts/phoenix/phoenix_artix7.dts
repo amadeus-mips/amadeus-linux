@@ -9,7 +9,12 @@
 
 	//TODO: insufficient bootargs
 	chosen {
-		bootargs = "console=ttyS0,115200 root=/dev/ram0 lpj=500000";
+		bootargs = "console=ttyS0,115200 console=tty0 debug lpj=500000";
+		stdout-path = "serial0:115200";
+	};
+
+	aliases {
+		serial0 = &axi_uart16550;
 	};
 
 	cpus {
@@ -49,7 +54,7 @@
 		#interrupt-cells = <1>;
 		ranges;
 	
-		serial0: serial@bfd00000 {
+		axi_uart16550: serial@bfd00000 {
 			device_type = "serial";
 			compatible = "ns16550";
 			reg = <0xbfd00000 0x1000>;
