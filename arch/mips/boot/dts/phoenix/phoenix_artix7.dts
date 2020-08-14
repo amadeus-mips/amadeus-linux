@@ -9,7 +9,7 @@
 
 	//TODO: insufficient bootargs
 	chosen {
-		bootargs = "console=ttyS0,115200 rootfstype=ramfs root=/dev lpj=500000";
+		bootargs = "console=ttyS0,115200 root=/dev/ram0 lpj=500000";
 	};
 
 	cpus {
