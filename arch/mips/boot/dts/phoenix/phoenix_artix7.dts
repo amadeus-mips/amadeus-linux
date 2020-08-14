@@ -67,34 +67,32 @@
 			interrupts = <5>;
 		};
 
-		axi_ethernetlite: ethernet@bfe00000 {
-			compatible = "xlnx,xps-ethernetlite-3.00.a";
-			device_type = "network";
-			interrupt_parent = <&cpuintc>;
-			interrupt = <3>;
-			local-mac-address = [e6 c7 26 bf e2 94];
-			phy-handle = <&phy0>;
-			phy-mode = "mii";
-			max-speed = <100>;
-			reg = <0xbfe00000 0x10000>;
-			xlnx,duplex = <0x1>;
-			xlnx,include-global-buffers = <0x1>;
-			xlnx,include-internal-loopback = <0x0>;
-			xlnx,include-mdio = <0x1>;
-			xlnx,instance = "axi_ethernetlite_inst";
-			xlnx,rx-ping-pong = <0x1>;
-			xlnx,s-axi-id-width = <0x1>;
-			xlnx,tx-ping-pong = <0x1>;
-			xlnx,use-internal = <0x0>;
-			mdio {
-					#address-cells = <1>;
-					#size-cells = <0>;
-					phy0: phy@1 {
-							device_type = "ethernet-phy";
-							reg = <1>;
-					} ;
-			} ;
-	};
+//		axi_ethernetlite: ethernet@bfe00000 {
+//			compatible = "xlnx,xps-ethernetlite-3.00.a";
+//			device_type = "network";
+//			interrupt_parent = <&cpuintc>;
+//			interrupt = <3>;
+//			local-mac-address = [e6 c7 26 bf e2 94];
+//			phy-handle = <&phy0>;
+//			reg = <0xbfe00000 0x10000>;
+//			xlnx,duplex = <0x1>;
+//			xlnx,include-global-buffers = <0x1>;
+//			xlnx,include-internal-loopback = <0x0>;
+//			xlnx,include-mdio = <0x1>;
+//			xlnx,instance = "axi_ethernetlite_inst";
+//			xlnx,rx-ping-pong = <0x1>;
+//			xlnx,s-axi-id-width = <0x1>;
+//			xlnx,tx-ping-pong = <0x1>;
+//			xlnx,use-internal = <0x0>;
+//			mdio {
+//					#address-cells = <1>;
+//					#size-cells = <0>;
+//					phy0: phy@1 {
+//							device_type = "ethernet-phy";
+//							reg = <1>;
+//					} ;
+//			} ;
+//	};
 	};
 
 };
