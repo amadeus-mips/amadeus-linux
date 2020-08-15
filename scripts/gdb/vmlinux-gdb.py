@@ -10,7 +10,7 @@
 #
 # This work is licensed under the terms of the GNU GPL version 2.
 #
-
+import sys
 import os
 
 sys.path.insert(0, os.path.dirname(__file__) + "/scripts/gdb")
